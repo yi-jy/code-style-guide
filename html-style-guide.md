@@ -39,7 +39,7 @@
 
 由于文档解析存在怪异模式和标准模式，而且你不知用户的浏览器所处模式。对于一些怪异模式的浏览器，可以强制使用渲染模式：
 
-```
+```html
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   ...
@@ -50,7 +50,7 @@
 
 如果希望你的网页在移动端也能正常展示，则需要对 `viewport` 进行设置：
 
-```
+```html
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 ```
 
@@ -60,7 +60,7 @@
 
 #### CSS 
 
-```
+```html
 <!-- 外部 CSS -->
 <link rel="stylesheet" href="page.css">
 
@@ -72,7 +72,7 @@
 
 #### JAVASCRIPT
 
-```
+```html
 <!-- 外部 JAVASCRIPT -->
 <script src="page.js"></script>
 
@@ -93,7 +93,7 @@
 
 关于使用空格还是tab，一直饱受争议。实际上，无论使用哪一种缩进方式，都没有对错。重要的是，公司内部约定，达到团队统一协作，建议使用两个空格（这样与内嵌JavaScript也统一）。
 
-```
+```html
 <div class="box">
   <p>text</p>
 </div>
@@ -103,7 +103,7 @@
 
 HTML内容需要统一使用小写形式：
 
-```
+```html
 <!-- bad -->
 <A HREF="/">xx.com</A>
 
@@ -115,7 +115,7 @@ HTML内容需要统一使用小写形式：
 
 在HTML5中，短标签允许不关闭，但其他标签必须得关闭：
 
-```
+```html
 <!-- good -->
 <img src="flower.png">
 
@@ -130,7 +130,7 @@ HTML内容需要统一使用小写形式：
 
 标签的使用，必须符合嵌套规则，各标签之间不允许随意嵌套：
 
-```
+```html
 <!-- bad -->
 <p>
   <div>text</div>
@@ -156,7 +156,7 @@ HTML内容需要统一使用小写形式：
 
 元素的属性值必须使用双引号，不运行使用单引号、或者不使用引号：
 
-```
+```html
 <!-- bad -->
 <a href='/'><a>
 
@@ -170,7 +170,7 @@ HTML内容需要统一使用小写形式：
 
 对于标签内一些布尔属性，XHTML需要每个属性声明取值，但在HTML5中，则不需要明确指定对应的布尔值：
 
-```
+```html
 <!-- bad -->
 <input type="text" disable="disabled">
 
@@ -184,7 +184,7 @@ HTML内容需要统一使用小写形式：
 
 如果用户需要在HTML标签上，自定义一些属性。建议以 `xxx-` 为前缀，推荐使用 `data-`：
 
-```
+```html
 <!-- bad -->
 <div type="a"></div>
 
@@ -207,7 +207,7 @@ HTML内容需要统一使用小写形式：
 
 在同一个页面中，请确保 `id` 的唯一性。另外，`id` 和 `class` 的命名请采用小写字母结合 `-` 分隔的形式：
 
-```
+```html
 <!-- bad -->
 <div class="CONTENT_BOX">text</div>
 <div class="CONTENT-BOX">text</div>
@@ -252,7 +252,7 @@ HTML5更是新增了一些标签：
 
 所以，不要指定空的地址，这也是HTML性能要求的准则之一。
 
-```
+```html
 <!-- bad -->
 <img src="">
 
@@ -268,7 +268,7 @@ title 属性给 img 提供了额外信息。
 
 如果存在一张图说明不了内容本身（一朵花，什么花呢？），又或者一个没有文字，只有图标的链接（什么链接？）的场景。那么，建议加上 title 属性：
 
-```
+```html
 <img src="flower.png" title="牡丹">
 ```
 
@@ -280,7 +280,7 @@ alt 属性是 img 的替代文字。
 
 当图片加载失败、或者用户浏览器被禁用、又或者遭遇视觉障碍以及屏幕阅读器用户时，alt 内容可以给浏览器提供有关该 img 的文字说明。另外，alt 属性也是 img SEO的重要依据。所以，给所有图片都加上 alt 属性吧：
 
-```
+```html
 <img src="flower" alt="鲜花">
 ```
 
@@ -295,7 +295,7 @@ alt 属性是 img 的替代文字。
 
 据说IE6不支持第一种嵌套的形式，你可以考虑结合这两种形式。
 
-```
+```html
 <label><input name="confirm" type="checkbox">我同意</label>
 
 <label for="username">用户名：</label> <input id="username" name="username" type="text">
@@ -311,7 +311,7 @@ alt 属性是 img 的替代文字。
 
 所以，针对表单中的不同按钮，需要显式的指定按钮类型：
 
-```
+```html
 <button type="button">按钮</button>
 <button type="reset">重置</button>
 <button type="submit">提交</button>
@@ -321,7 +321,7 @@ alt 属性是 img 的替代文字。
 
 通常情况下，我们都是先使用JavaScript处理完相关逻辑，再进行提交。但如果用户浏览器禁用了JavaScript，为保证数据能正常提交，则需要平稳处理：
 
-```
+```html
 <form action="/login" method="post">
   <input name="username" type="text" placeholder="用户名">
   <input name="password" type="password" placeholder="密码">
@@ -356,7 +356,7 @@ alt 属性是 img 的替代文字。
 
 对于一些低版本的浏览器，可能会出现不支持的元素或者特性。此时，你需要做好平稳降级：
 
-```
+```html
 <canvas>
   你的浏览器不支持canvas！
 </canvas>
@@ -366,7 +366,7 @@ alt 属性是 img 的替代文字。
 
 由于各个浏览器对多媒体播放源的支持度不同，为保证多媒体在不同浏览器正常播放，你需要为同一资源，提供多个文件格式：
 
-```
+```html
 <video controls>
   <source src="foo.mp4" type="video/mpeg">
   <source src="foo.ogg" type="video/ogg">

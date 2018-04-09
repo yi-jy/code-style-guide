@@ -53,7 +53,7 @@
 
 属性与属性值之间，请在属性 `:` 后面保留空格：
 
-```
+```css
 /* bad */
 .box {
   width:100px;
@@ -67,7 +67,7 @@
 
 `>`、`+`、`~` 选择器的两边各保留一个空格：
 
-```
+```css
 /* bad */
 .box>p {
   width: 100px;
@@ -81,7 +81,7 @@
 
 如果一个属性存在多个属性值，则必须使用 `,` 结合 空格 一一列出：
 
-```
+```css
 /* bad */
 .box {
   font-family: Arial,sans-serif;
@@ -99,7 +99,7 @@
 
 `{` 与 属性之间，属性值与 `}` 之间，需要保留一个空行：
 
-```
+```css
 /* bad */
 .box {width: 100px;}
 
@@ -111,7 +111,7 @@
 
 不同选择器应用不同的样式，则不同选择器之间，需要保留一个空行：
 
-```
+```css
 /* bad */
 .box {
   width: 100px;
@@ -132,7 +132,7 @@
 
 如果不同选择器，应用同一样式，那么选择器之间也需要保留一个空行：
 
-```
+```css
 /* bad */
 .box, .header {
   width: 100px;
@@ -147,7 +147,7 @@
 
 less 中嵌套的选择器，请在前面保留空行：
 
-```
+```css
 /* bad */
 .box {
   width: 100px;
@@ -179,7 +179,7 @@ less 中嵌套的选择器，请在前面保留空行：
 
 属性选择器的值必须使用双引号：
 
-```
+```css
 li[class^="color_"] {
   color: #F00;
 }
@@ -187,7 +187,7 @@ li[class^="color_"] {
 
 属性的值必须使用双引号：
 
-```
+```css
 .box {
   font-family: "Microsoft YaHei", sans-serif;
 }
@@ -199,7 +199,7 @@ li[class^="color_"] {
 
 在很多代码规范中，都建议 `url()` 中不需要使用引号：
 
-```
+```css
 .box {
   background: url(../img/bg.png);
 }
@@ -207,7 +207,7 @@ li[class^="color_"] {
 
 但是，如果你使用的是less编译器，如果不加引号，便直接会导致报错。所以，建议给背景加上引号：
 
-```
+```css
 @imgPath: "../static/img/public";
 
 .box {
@@ -223,7 +223,7 @@ li[class^="color_"] {
 
 但如果不做限定，则直接查找对应的 id 或 class，性能明显高：
 
-```
+```css
 /* bad */
 div.box {
   width: 100px;
@@ -239,7 +239,7 @@ div.box {
 
 并非所有的 tag 都定义了 class 属性，但 class 属性必须定义在 tag 上。所以，class 的匹配效率，肯定高于 tag：
 
-```
+```css
 /* bad */
 .box a span {
   color: red;
@@ -255,7 +255,7 @@ div.box {
 
 为了提高性能，也为了减少样式文件的体积，请尽可能保持嵌套层级不超过四级：
 
-```
+```css
 /* bad */
 .box .box-hd .title .slogan {
   color: red;
@@ -273,7 +273,7 @@ div.box {
 
 为了加以区分，CSS3决定使用单冒号 `:` 来表示 伪类，使用双冒号 `::` 来表示伪元素。
 
-```
+```css
 /* 伪类 */
 a:hover {}
 p:first-child {}
@@ -294,7 +294,7 @@ div::before {}
 
 关于CSS文件体积的问题，交给打包工具吧：
 
-```
+```css
 /* bad */
 .box {width: 100px;height: 100px;color: red;}
 
@@ -320,7 +320,7 @@ div::before {}
 
 为兼容不同浏览器，开发者们不得不写一些私有前缀。建议将前缀由长到短排列，另外，标准（无前缀）属性应该放在最后：
 
-```
+```css
 /* bad */
 .box {
   -webkit-border-radius: 3px;
@@ -348,7 +348,7 @@ div::before {}
 
 CSS中包含很多复合属性（font，background等），通过它们，我们可以使用简写形式来表示多个属性，从而提高编码效率。
 
-```
+```css
 /* bad */
 .box {
   font-weight: bold;
@@ -365,7 +365,7 @@ CSS中包含很多复合属性（font，background等），通过它们，我们
 
 但也要注意权衡，如果使用简写只表示单个属性，则后面可能会导致其他不必要的样式被覆盖。
 
-```
+```css
 /* bad */
 .box {
   padding: 0 0 0 5px;
@@ -379,7 +379,7 @@ CSS中包含很多复合属性（font，background等），通过它们，我们
 
 如果属性值为 -1 ~ 1 之间的小数，可省略 `0`：
 
-```
+```css
 /* bad */
 .box {
   opacity: 0.5;
@@ -395,7 +395,7 @@ CSS中包含很多复合属性（font，background等），通过它们，我们
 
 如果十六进制的颜色，可以缩写，则应该采用缩写的形式：
 
-```
+```css
 /* bad */
 .box {
   color: #336699;
@@ -411,7 +411,7 @@ CSS中包含很多复合属性（font，background等），通过它们，我们
 
 当属性值为 0 时，可省略相关单位：
 
-```
+```css
 /* bad */
 .box {
   bottom: 0px;
@@ -457,7 +457,7 @@ CSS中包含很多复合属性（font，background等），通过它们，我们
 
 对于CSS中的注释，请统一使用 `/* xx */` 这种形式，注意在左边 `*` 的后面，以及右边 `*` 的前面，需要保留空格：
 
-```
+```css
 /* ad */
 .ad {
   width: 100px;
@@ -470,7 +470,7 @@ CSS中包含很多复合属性（font，background等），通过它们，我们
 
 因此，对于图片的缩放，一般不设置 `width`（即默认值 auto）。并且建议使用 `max-width`，一般的值为 `100%`，这样，在页面缩放时，图片最大也只能是它的原始尺寸：
 
-```
+```css
 .img {
   max-width: 100%;
 }
@@ -480,7 +480,7 @@ CSS中包含很多复合属性（font，background等），通过它们，我们
 
 本着方便维护的原则，尽可能将媒体查询的规则靠近相关选择器，不要把它们放在样式表的最底部，也不要放在独立样式表中：
 
-```
+```css
 .box {
   width: 1000px;
 }
@@ -499,7 +499,7 @@ CSS中包含很多复合属性（font，background等），通过它们，我们
 
 本着方便维护的原则，尽可能将动画的定义靠近相关选择器，不要把它们放在样式表的最底部，也不要放在独立样式表中：
 
-```
+```css
 .box {
   animation: fadeIn 1s;
 }
@@ -521,7 +521,7 @@ CSS中包含很多复合属性（font，background等），通过它们，我们
 
 当使用 `transition` 进行属性变换来处理动画时，为提高性能，则应该指定具体的 `transition-property`：
 
-```
+```css
 /* bad */
 .box {
   transition: all 1s;
