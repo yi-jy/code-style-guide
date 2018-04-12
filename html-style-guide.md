@@ -84,8 +84,32 @@
 
 推荐阅读 [link](https://www.w3.org/TR/2011/WD-html5-20110525/semantics.html#the-link-element)、[style](https://www.w3.org/TR/2011/WD-html5-20110525/semantics.html#the-style-element)、[script](https://www.w3.org/TR/2011/WD-html5-20110525/scripting-1.html#the-script-element) 的使用。
 
-另外，如果有性能要求，可以考虑对外部的 JS 文件使用 `defer` 和 `async` 属性。
+另外，如果有性能要求，可以考虑对外部的JS文件使用 `defer` 和 `async` 属性。
 
+还有，如果位于页面底部的JS文件，它的位置必须位于 `</body>` 前面：
+
+```html
+<!-- bad -->
+...
+<footer>...</footer>
+</body>
+<script src="page.js"></script>
+</html>
+
+<!-- bad -->
+...
+<footer>...</footer>
+</body>
+</html>
+<script src="page.js"></script>
+
+<!-- good -->
+...
+<footer>...</footer>
+<script src="page.js"></script>
+</body>
+</html>
+```
 
 ## 基本
 
