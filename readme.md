@@ -2,5 +2,5 @@
 
 - [html](html-style-guide.md)
 - [css](css-style-guide.md)
-- javascript
+- [javascript](javascript-style-guide.md)
 

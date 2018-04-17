@@ -4,7 +4,7 @@
 
 为了保证在各大IDE中显示的代码格式一致，请使用两个空格：
 
-```
+```js
 // bad 
 function add(a, b) {
     return a + b;
@@ -20,7 +20,7 @@ function add(a, b) {
 
 由于html标签的属性值，都是双引号 `""`。为了明确区分，也为了拼接字符串时单引号和双引号之间的转换。因此，建议在JavaScript中，使用单引号 `''` 来包含字符串：
 
-```
+```js
 // bad
 let str = "string content";
 
@@ -36,7 +36,7 @@ let str = 'string content';
 
 上面说到单行长度最好不要超过80个字符，如果超过，则我们需要手动换行。比如，一个很长的判断：
 
-```
+```js
 // bad
 if (form.get('username') && form.get('age') && form.get('phone').length === 11 && form.get('address')) {
 
@@ -53,7 +53,7 @@ if (form.get('username') &&
 
 又比如，一个很长的字符串拼接：
 
-```
+```js
 // bad
 let html = '<div class="box"><h3 class="box-title"></h3><p>some content</p></div>';
 
@@ -90,7 +90,7 @@ let html = [
 
 为避免全局变量的污染，必须通过 `var` 来声明一个变量：
 
-```
+```js
 // bad
 str = 'string content';
 
@@ -100,7 +100,7 @@ var str = 'string content';
 
 若使用ES6编码，则建议声明变量使用 `let`，而声明常量则使用 `const`：
 
-```
+```js
 // bad
 var str = 'string content';
 var domain = 'xx.com';
@@ -112,7 +112,7 @@ const domain = 'xx.com';
 
 声明变量时，`=` 两边应该保留空格。并且，在声明多个变量时，`,` 应该放在变量值后：
 
-```
+```js
 // bad
 var str='string content';
 
@@ -134,7 +134,7 @@ var str2 = 'string content';
 
 在作用域的顶部声明变量，并建议后面再赋值的变量位于最后：
 
-```
+```js
 // bad
 function foo() {
   
@@ -160,7 +160,7 @@ function foo() {
 
 使用数组字面量，而非构造函数的形式来创建数组：
 
-```
+```js
 // bad
 var arr = new Array();
 
@@ -170,7 +170,7 @@ var arr = [];
 
 数组的每项后面的 `,` 需保留空格：
 
-```
+```js
 // bad
 var arr = ['str',1,true];
 
@@ -180,7 +180,7 @@ var arr = ['str', 1, true];
 
 数组的循环，建议使用 `for` 或者 `for of`：
 
-```
+```js
 var arr = [2, 4, 6];
 
 for(var i = 0; i < arr.length; i++) {
@@ -194,7 +194,7 @@ for(item of arr) {
 
 由于数组是引用类型，当直接赋值拷贝数组时，可能存在相互影响的问题。建议使用 `slice` 来处理拷贝问题（也可以通过先 `join` 再 `split` 的方式）：
 
-```
+```js
 // bad
 var arr1 = [1, 2, 3];
 var arr2 = arr1;
@@ -206,7 +206,7 @@ var arr2 = arr1.slice();
 
 若需要将伪数组转换为数组，也可通过 `slice` 方法：
 
-```
+```js
 function foo() {
   var args = Array.prototype.slice.call(arguments);
   
@@ -218,7 +218,7 @@ function foo() {
 
 使用对象字面量，而非构造函数的形式来创建对象：
 
-```
+```js
 // bad
 var obj = new Object();
 
@@ -228,7 +228,7 @@ var obj = {};
 
 和JSON不同，对象的属性名无需加引号。并且，属性值后面的 `:` 与属性值直接需保留一个空格，另外，如果对象存在多个属性时，需每个属性独占一行：
 
-```
+```js
 // bad
 var obj = {
   'name': 'xx',
@@ -251,7 +251,7 @@ var obj = {
 
 访问对象单个属性时，为防止属性名无法正常读取，最好是通过中括号 `[]` 来进行访问：
 
-```
+```js
 var obj = {
   'my-name': 'xx',
   age: 8
@@ -266,7 +266,7 @@ console.log(obj['my-name']);
 
 但若要访问对象的所有属性，可通过 `for in` 结合 `hasOwnProperty` 来处理：
 
-```
+```js
 var obj = {
   name: 'xx',
   age: 8
@@ -283,7 +283,7 @@ for (var key in obj) {
 
 函数一般有两种定义形式，即 `函数声明` 和 `函数表达式`：
 
-```
+```js
 // 函数声明
 function foo() {
 
@@ -297,7 +297,7 @@ var foo = function() {
 
 其中，在函数声明里，`function` 与函数名之间需保留一个空格，`()` 与 `{` 直接也需要保留一个空格，函数表达式里类似。如果函数里包含参数，则每个参数之间需要用 `, ` 分隔：
 
-```
+```js
 // bad
 function foo(a,b,c) {
 
@@ -336,7 +336,7 @@ for of
 
 动态生成字符串，可通过数组的 `join`，而非连接符：
 
-```
+```js
 // bad
 function getHtml(data) {
   var html = '<ul>';
@@ -370,7 +370,7 @@ function getHtml(data) {
 
 一般而言，单行注释采用双斜线，即 `//`。`//` 与底部的代码必须保持相同的缩进，并且 `//` 与注释说明之间必须保留一个空格：
 
-```
+```js
 // bad
 //some comment
 foo();
@@ -385,7 +385,7 @@ foo();
 
 既然是单行注释，所以，请保证每行注释单独占一行：
 
-```
+```js
 // bad
 foo(); // some comment
 
@@ -396,7 +396,7 @@ foo();
 
 另外，在单行注释的前面，必须保留空一行：
 
-```
+```js
 // bad
 function add(a, b) {
   // b 的默认值为 1
@@ -419,7 +419,7 @@ function add(a, b) {
 
 如果注释内容过多，你不能以连续多行的单行注释的这种形式来对内容进行注释，比如：
 
-```
+```js
 // bad
 function foo() {
 
@@ -430,7 +430,7 @@ function foo() {
 
 遇到此类情况，你该考虑使用多行注释。多行注释以 `/**` 开头，`*/` 结尾：
 
-```
+```js
 // good
 function foo() {
 
@@ -443,7 +443,7 @@ function foo() {
 
 和单行注释一样，`*` 与注释说明之间须留有一个空格，多行注释之前也需要保留空行，多行注释与底部代码对齐。以下都为不好的做法：
 
-```
+```js
 // bad
 function foo() {
 
