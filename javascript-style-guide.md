@@ -549,7 +549,7 @@ function foo() {
 
 全局变量容易出现命名冲突、难以调试、访问性能等问题。因此，在日常编码中，尽量避免全局变量。以下两种变量的定义，都会导致全局变量：
 
-```
+```js
 // bad a 没有使用 var 定义
 a = 1;
 
@@ -565,7 +565,7 @@ function foo() {
 
 更重要的是，它让一些代码看起来很迷惑：
 
-```
+```js
 var cat = {
   color: 'black',
   age: 3
@@ -584,7 +584,7 @@ with (cat) {
 
 由于 `eval` 会混淆语义，使用起来容易出错，最主要的是它自身是一个编译器，能执行一切传入它的内容，如果传入它的内容为不信任的源，这让程序不能保证预期。比如：
 
-```
+```js
 var a = 1;
 
 eval('a = 2');
@@ -598,7 +598,7 @@ eval('alert("warning")');
 
 递增和递减运算符本意是让代码写起来更方便，但同时，它也会使代码看上去难以理解，尤其是 `++` 和 `--` 位于变量之前。为了代码的易读性，推荐使用 `+=` 和 `-=`：
 
-```
+```js
 // bad
 var a = 1;
 
@@ -628,7 +628,7 @@ a += 1;
 
 另外，由于系统原因，`Android` 在变量名中应该首字符大写，而 `iOS` 则是首字母小写，后面两个字母大写。
 
-```
+```js
 // bad
 let MyName = 'xx';
 let getCount = 10;
@@ -659,7 +659,7 @@ const DOMAIN_NAME = 'xx.com';
 
 一些好的命名：
 
-```
+```js
 // bad
 function myName() {
   
@@ -681,7 +681,7 @@ function isDone() {
 
 另外，构造函数和类的名称，首字符应该大写：
 
-```
+```js
 function Person(name) {
   this.name = name;
 }
@@ -699,7 +699,7 @@ class Person {
 
 为了避免全局变量带来的影响，可采用自执行的匿名函数来包裹代码：
 
-```
+```js
 ;(function(env) {
   var version = '1.0';
 
@@ -711,7 +711,7 @@ class Person {
 
 前面的 `;` 是为了防止打包多个文件时，该文件被识别为函数调用。或者，采用命名空间：
 
-```
+```js
 var util = {
   version: '1.0',
 
@@ -758,7 +758,7 @@ function getData(val) {
 
 判断数组里是否含有项时，可直接判断：
 
-```
+```js
 // bad
 if (listData.length > 0) {
 
@@ -774,19 +774,19 @@ if (listData.length) {
 
 转字符串时，建议使用 `+ ''`：
 
-```
+```js
 var str = num + '';
 ```
 
 转数字时，建议使用 `+`：
 
-```
+```js
 var num = +str;
 ```
 
 转布尔值时，建议使用 `!!`：
 
-```
+```js
 var hasMoreData = !!dataList.length;
 ```
 
@@ -824,7 +824,7 @@ function getHtml(data) {
 
 对于一些重复的操作，可集中处理：
 
-```
+```js
 // bad
 $('.box .content1').show();
 $('.box .content2').show();
@@ -841,7 +841,7 @@ $('.box .content1, .box .content2').show();
 
 所以，有必要对函数里的代码进行拆分。
 
-```
+```js
 // bad
 function login() {
   var userName = form.get('userName');
@@ -877,7 +877,7 @@ function login() {
 
 上面代码中，将表单验证、ajax数据请求、dom操作都混在一个函数里。可读性差，无法复用。可这样改进：
 
-```
+```js
 // good
 function login() {
   checkForm(function(userName, password) {
@@ -927,7 +927,7 @@ function setUserStatus(res) {
 
 将默认参数放在后面，这样，在函数调用时，可以不传默认参数：
 
-```
+```js
 // bad
 function foo(opts = {}, name) {
 
@@ -943,7 +943,7 @@ function foo(name, opts = {}) {
 
 如果参数不确定个数或者传入的顺序，可考虑使用对象来作为参数的数据类型，将原有的参数挂在对象属性上：
 
-```
+```js
 function foo(opts = {}) {
 
 }
@@ -957,7 +957,7 @@ foo({
 
 请求数据的参数建议使用 `data`，返回数据的参数建议使用 `res` ：
 
-```
+```js
 function getUserInfo(data) {
   $.ajax({
     data: data,
