@@ -392,8 +392,8 @@ alt 属性是 img 的替代文字。
 - 注册 regsiter
 - 搜索 search
 - 轮播 slide
-- 按钮 btn
-- 图标 icon
+- 按钮 btn btn-xx
+- 图标 icon icon-xx
 - 标签页 tab
 - 列表 list
 - 单项 item
@@ -417,6 +417,10 @@ alt 属性是 img 的替代文字。
 - 当前 current
 - 活跃 active
 - 禁用 disabled
+- 开 on
+- 关 off
+- 成功 success
+- 失败 fail
 
 ### iframe
 
