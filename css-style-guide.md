@@ -215,6 +215,7 @@ li[class^="color_"] {
 }
 ```
 
+
 ## 选择器
 
 ### 不要为 tag 添加 id 或者 class 限定
@@ -257,12 +258,12 @@ div.box {
 
 ```css
 /* bad */
-.box .box-hd .title .slogan {
+.section .box .box-hd .title .slogan {
   color: red;
 }
 
 /* good */
-.box .box-hd .slogan {
+.section .box .slogan {
   color: red;
 }
 ```
@@ -422,6 +423,7 @@ CSS中包含很多复合属性（font，background等），通过它们，我们
   bottom: 0;
 }
 ```
+
 
 ## 避免
 

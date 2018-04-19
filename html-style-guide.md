@@ -111,6 +111,7 @@
 </html>
 ```
 
+
 ## 基本
 
 ### 代码缩进
@@ -308,6 +309,7 @@ alt 属性是 img 的替代文字。
 <img src="flower" alt="鲜花">
 ```
 
+
 ## 表单
 
 ### 控件关联
@@ -356,6 +358,66 @@ alt 属性是 img 的替代文字。
 
 ## 其他
 
+### 命名
+
+#### 页面结构
+
+- 页面 page > page-content
+- 头部 header
+- 内容 content
+- 内容主体 main
+- 侧边栏 aside
+- 尾部 footer
+- 栏目 column
+- 外围 wrapper
+
+#### 导航 & 侧边栏
+
+- 导航 nav
+- 顶部导航 top-nav
+- 子导航 sub-nav
+- 顶部栏 nav-bar
+- 底部栏 tool-bar
+- 菜单 menu
+- 子菜单 sub-menu
+- 标题 title
+- 摘要 summary
+
+#### 功能
+
+- 模板 tpl-xx
+- 标志 logo
+- 广告 banner
+- 登录 login login-in(out) 
+- 注册 regsiter
+- 搜索 search
+- 轮播 slide
+- 按钮 btn
+- 图标 icon
+- 标签页 tab
+- 列表 list
+- 单项 item
+- 表单 form
+- 弹层 popop
+- 滚动 scroll
+- 进度 progress
+- 步骤 step
+- 服务 service
+- 指南 guide
+- 提示 tips
+- 备注 note
+- 消息 msg
+- 上传 upload
+- 下载 download
+
+#### 状态
+
+- 状态 status
+- 选中 selected
+- 当前 current
+- 活跃 active
+- 禁用 disabled
+
 ### iframe
 
 尽可能不使用 `iframe` 元素，因为：
@@ -396,4 +458,3 @@ alt 属性是 img 的替代文字。
   <source src="foo.ogg" type="video/ogg">
 </video>
 ```
-

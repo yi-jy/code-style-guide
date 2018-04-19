@@ -107,7 +107,7 @@ var domain = 'xx.com';
 
 // good
 let str = 'string content';
-const domain = 'xx.com';
+const DOMAIN = 'xx.com';
 ```
 
 声明变量时，`=` 两边应该保留空格。并且，在声明多个变量时，`,` 应该放在变量值后：
@@ -249,6 +249,22 @@ var obj = {
 };
 ```
 
+如果对象中包含了多个方法，为了代码的可读性，可以考虑在方法前保留空行：
+
+```
+var util = {
+  version: '1.0',
+
+  addClass: function() {
+
+  },
+
+  removeClass: function() {
+    
+  }
+};
+```
+
 访问对象单个属性时，为防止属性名无法正常读取，最好是通过中括号 `[]` 来进行访问：
 
 ```js
@@ -295,7 +311,14 @@ var foo = function() {
 }
 ```
 
-其中，在函数声明里，`function` 与函数名之间需保留一个空格，`()` 与 `{` 直接也需要保留一个空格，函数表达式里类似。如果函数里包含参数，则每个参数之间需要用 `, ` 分隔：
+其中，在函数声明里，需要注意以下几点：
+
+- `function` 与函数名之间需保留一个空格
+- 函数名与 `(` 之间无需空格
+- `()` 与 `{` 直接也需要保留一个空格
+- 函数里包含多个参数，则每个参数之间需要用 `, ` 来分隔
+
+函数表达式里类似。
 
 ```js
 // bad
@@ -314,53 +337,102 @@ foo(1, 2, 3);
 ```
 
 
-### 判断
+### 代码块
 
-if else
-
-while
-
-switch
-
-三目
-
-### 循环
-
-for
-
-for in
-
-for of
-
-### 其他
-
-动态生成字符串，可通过数组的 `join`，而非连接符：
+在判断和循环的语句块中，需要在关键词的两边保留空格：
 
 ```js
 // bad
-function getHtml(data) {
-  var html = '<ul>';
+if(a == 1){
 
-  for (var i = 0; i < data.length; i++) {
-    items += '<li>' + data[i].text + '</li>';
-  }
+}
 
-  html += '</ul>'
+while(true){
 
-  return html;
-} 
+}
+
+switch(value){
+
+}
+
+for(var i = 0; i < 10; i += 1){
+
+}
 
 // good
-function getHtml(data) {
-  var items = [];
+if (a === 1) {
 
-  for (var i = 0; i < data.length; i++) {
-    items[i] = '<li>' + data[i].text + '</li>';
-  }
+}
 
-  return '<ul>' + items.join('') + '</ul>';
+while (true) {
+
+}
+
+switch (value) {
+
+}
+
+for (var i = 0; i < 10; i += 1) {
+
 }
 ```
+
+在代码块的前面，建议保留一个空行：
+
+```js
+// bad
+var a = 1;
+for (var i = 0; i < 10; i += 1) {
+
+}
+
+// good
+var a = 1;
+
+for (var i = 0; i < 10; i += 1) {
+
+}
+```
+
+在 `if` 判断中，为防止JavaScript弱类型转换，必须使用严格类型符号 `===` 来进行比较：
+
+```js
+// bad
+if (a == 1) {
+
+}
+
+// good
+if (a === 1) {
+
+}
+```
+
+一些判断可通过三元运算符来简写，但是如果条件与结果过长，则必须采用换行的形式：
+
+```js
+// bad
+var tips = isMember ? aVeryVeryVeryLongStringA : aVeryVeryVeryLongStringB;
+
+// good
+var tips = isMember 
+  ? aVeryVeryVeryLongStringA
+  : aVeryVeryVeryLongStringB;
+```
+
+另外，如果存在多重三元运算符，则需要注意层级缩进：
+
+```js
+function joinAct(isMember) {
+
+  return isMember
+    ? memberLevel > 3
+      ? sendSomething()
+      : alertMemberLevelIsLower()
+    : alertNotIsMember()
+}
+```
+
 
 ## 注释
 
@@ -448,23 +520,23 @@ function foo() {
 function foo() {
 
   /**
-   *解释的第一行
-   *解释的第二行
+   *这段注释的问题是
+   *符号（*）后面没有空格
    */
 }
 
 function foo() {
   /**
-   * 解释的第一行
-   * 解释的第二行
+   * 这段注释的问题是
+   * 前面没有空行
    */
 }
 
 function foo() {
 
 /**
- * 解释的第一行
- * 解释的第二行
+ * 这段注释的问题是
+ * 没有对底部代码对齐
  */
   const a = 1;
 }
@@ -473,7 +545,425 @@ function foo() {
 
 ## 避免
 
-with 语句
+### 全局变量
 
-eval 语句
+全局变量容易出现命名冲突、难以调试、访问性能等问题。因此，在日常编码中，尽量避免全局变量。以下两种变量的定义，都会导致全局变量：
 
+```
+// bad a 没有使用 var 定义
+a = 1;
+
+// bad c 为全局变量
+function foo() {
+  var b = c = 2;
+}
+```
+
+### with
+
+通过改变包含上下文解析变量的方式，`with` 可以轻松的设置和访问对象的属性，但它也会降低性能，通过with包裹的代码块，作用域链将会额外增加一层，降低索引效率。
+
+更重要的是，它让一些代码看起来很迷惑：
+
+```
+var cat = {
+  color: 'black',
+  age: 3
+}
+
+var color = 'red';
+
+with (cat) {
+  color = 'brown'
+}
+```
+
+如果不运行代码，你很难知道 `with` 中 `color` 的重新赋值，是针对全局变量 `color`，还是它的 `color` 属性（实际上，`cat` 有对应的属性，则是对它属性的重新赋值。否者，则对全局变量赋值）。
+
+### eval
+
+由于 `eval` 会混淆语义，使用起来容易出错，最主要的是它自身是一个编译器，能执行一切传入它的内容，如果传入它的内容为不信任的源，这让程序不能保证预期。比如：
+
+```
+var a = 1;
+
+eval('a = 2');
+
+eval('alert("warning")');
+```
+
+所以，应该尽量避免使用 `eval` 函数。与 `eval` 有着类似功能的，还有 `Function`、 `setTimeout()` 以及 `setInterval()`。
+
+### ++ --
+
+递增和递减运算符本意是让代码写起来更方便，但同时，它也会使代码看上去难以理解，尤其是 `++` 和 `--` 位于变量之前。为了代码的易读性，推荐使用 `+=` 和 `-=`：
+
+```
+// bad
+var a = 1;
+
+a++;
+
+// good
+var a = 1;
+
+a += 1;
+```
+
+
+## 代码组织与优化
+
+### 命名
+
+虽然命名一直是编码中的一个难题，但良好的命名，可大大提高代码的可读性。JavaScript中的命名统一采用驼峰式命名法，根据语法功能，可分为变量（常量）和函数：
+
+#### 变量 & 常量的命名
+
+变量 & 常量的名称应该结合实际场景。其中，要注意以下几点：
+
+- 变量以小写字母开头，之后每个单词首字母大写
+ - 布尔值类型的变量，应该使用 `is`, `has` 或者 `can` 开头
+ - 正则类型的变量，建议使用 `RegExp` 结尾 
+- 常量名应该全部大写，并且用 `_` 连接
+
+另外，由于系统原因，`Android` 在变量名中应该首字符大写，而 `iOS` 则是首字母小写，后面两个字母大写。
+
+```
+// bad
+let MyName = 'xx';
+let getCount = 10;
+let domain_name = 'xx.com';
+
+// good
+let catColor = 'black';
+let isFound = false;
+let AndroidVersion = '2.0.0';
+let iOSVersion = '2.0.0';
+let emptyRegExp = /^\s*$/;
+const DOMAIN_NAME = 'xx.com';
+```
+
+数组对象命名类同。
+
+#### 函数的命名
+
+普通函数名也采用驼峰命名法，即首字母小写，后面每个单词的首字母大写。并且建议第一个单词为 `动词`，后续单词应尽量结合具体场景：
+
+| **动词** | **解释** |
+| ----- | ----- |
+| is   | 返回布尔值，表示是否处于某种状态 |
+| has  | 返回布尔值，判断是否含有某个值 |
+| can  | 返回布尔值，判断是否能执行某个动作 |
+| set  | 进行某种操作 |
+| get  | 返回一个数据，获取内容 |
+
+一些好的命名：
+
+```
+// bad
+function myName() {
+  
+}
+
+// good
+function getUserData() {
+
+}
+
+function checkForm() {
+
+}
+
+function isDone() {
+
+}
+```
+
+另外，构造函数和类的名称，首字符应该大写：
+
+```
+function Person(name) {
+  this.name = name;
+}
+
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+}
+```
+
+### 优化
+
+#### 全局变量
+
+为了避免全局变量带来的影响，可采用自执行的匿名函数来包裹代码：
+
+```
+;(function(env) {
+  var version = '1.0';
+
+  function addClass() {
+    
+  }
+})(window);
+```
+
+前面的 `;` 是为了防止打包多个文件时，该文件被识别为函数调用。或者，采用命名空间：
+
+```
+var util = {
+  version: '1.0',
+
+  addClass: function() {
+
+  }
+};
+```
+
+#### 值的判断
+
+判断布尔值变量时，可直接取反判断：
+
+```js
+// bad
+if (isLoading === false) {
+
+}
+
+// good
+if (!isLoading) {
+
+}
+```
+
+判断变量值时，可使用 `||` 来代替：
+
+```js
+// bad
+function getVal(val) {
+
+  if (val) {
+    return val;
+  } else {
+    return 'some text';
+  }
+}
+
+// good
+function getData(val) {
+  return val || 'some text'; 
+}
+```
+
+判断数组里是否含有项时，可直接判断：
+
+```
+// bad
+if (listData.length > 0) {
+
+}
+
+// good
+if (listData.length) {
+
+}
+```
+
+#### 类型转换
+
+转字符串时，建议使用 `+ ''`：
+
+```
+var str = num + '';
+```
+
+转数字时，建议使用 `+`：
+
+```
+var num = +str;
+```
+
+转布尔值时，建议使用 `!!`：
+
+```
+var hasMoreData = !!dataList.length;
+```
+
+#### 字符串拼接
+
+动态生成字符串，可通过数组的 `join`，而非连接符：
+
+```js
+// bad
+function getHtml(data) {
+  var html = '<ul>';
+
+  for (var i = 0; i < data.length; i++) {
+    items += '<li>' + data[i].text + '</li>';
+  }
+
+  html += '</ul>'
+
+  return html;
+} 
+
+// good
+function getHtml(data) {
+  var items = [];
+
+  for (var i = 0; i < data.length; i++) {
+    items[i] = '<li>' + data[i].text + '</li>';
+  }
+
+  return '<ul>' + items.join('') + '</ul>';
+}
+```
+
+#### DOM操作
+
+对于一些重复的操作，可集中处理：
+
+```
+// bad
+$('.box .content1').show();
+$('.box .content2').show();
+
+// good
+$('.box .content1, .box .content2').show();
+```
+
+### 函数
+
+#### 函数拆分
+
+通常情况下，一个函数的行数应该控制在50行以内。主要考虑到如果将所有的代码都塞入一个函数，一来需要翻屏才能看完整个函数，这影响可读性。二来函数内部代码量大、逻辑繁多，导致难以维护和复用。
+
+所以，有必要对函数里的代码进行拆分。
+
+```
+// bad
+function login() {
+  var userName = form.get('userName');
+  var password = form.get('password');
+
+  if (!userName) {
+    return alert('未输入用户名')；
+  }
+
+  if (!password) {
+    return alert('未输入密码')；
+  }
+
+  $.ajax({
+    data: {
+      userName: userName,
+      password: password
+    },
+    success: function(res) {
+
+      if (res.statusCode === 200) {
+        $('.login-in').hide();
+        $('.login-out').show();
+
+        $('.user-name').html(res.userName);
+      } else {
+        alert('登录失败');
+      }
+    }
+  });
+}
+```
+
+上面代码中，将表单验证、ajax数据请求、dom操作都混在一个函数里。可读性差，无法复用。可这样改进：
+
+```
+// good
+function login() {
+  checkForm(function(userName, password) {
+
+    $.ajax({
+      data: {
+        userName: userName,
+        password: password
+      },
+      success: function(res) {
+
+        if (res.statusCode === 200) {
+          setUserStatus(res);
+        } else {
+          alert('登录失败');
+        }
+      }
+    });
+    
+  });
+}
+
+function checkForm(callback) {
+  var userName = form.get('userName');
+  var password = form.get('password');
+
+  if (!userName) {
+    return alert('未输入用户名')；
+  }
+
+  if (!password) {
+    return alert('未输入密码')；
+  }
+
+  typeof callback === 'function' && callback(userName, password);
+}
+
+function setUserStatus(res) {
+  $('.login-in').hide();
+  $('.login-out').show();
+
+  $('.user-name').html(res.userName);
+}
+```
+
+#### 参数设计
+
+将默认参数放在后面，这样，在函数调用时，可以不传默认参数：
+
+```
+// bad
+function foo(opts = {}, name) {
+
+}
+
+// good
+function foo(name, opts = {}) {
+
+}
+```
+
+如果函数的参数比较多的话，说明函数处理的逻辑也比较多，此时，你可以考虑拆分你的函数。
+
+如果参数不确定个数或者传入的顺序，可考虑使用对象来作为参数的数据类型，将原有的参数挂在对象属性上：
+
+```
+function foo(opts = {}) {
+
+}
+
+foo({
+  name: 'xx',
+  age: 30,
+  callback: function() {}
+})
+```
+
+请求数据的参数建议使用 `data`，返回数据的参数建议使用 `res` ：
+
+```
+function getUserInfo(data) {
+  $.ajax({
+    data: data,
+    success: function(res) {
+      console.log(res);
+    }
+  })
+}
+```
